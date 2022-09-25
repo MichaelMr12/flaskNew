@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash, redirect
 from forms import LoginForm
 
 from config import Config
@@ -12,14 +12,20 @@ def hi():  # put application's code here
     return 'sdfsdf!'
 
 
-@app.route('/login/')
+@app.route('/login', methods=['GET', 'POST'])
 def login():  # put application's code here
     form = LoginForm()
+    print(form.validate_on_submit())
+    if form.validate_on_submit():
+        flash(f"Зашел пользователь под логином {form.username.data}, запомнить = {form.remember_me.data}")
+        return redirect('/index')
+
     return render_template('login.html', title='Авторизация пользователя', form=form)
 
 
+
 @app.route('/')
-@app.route('/index/')
+@app.route('/index')
 def index():  # put application's code here
     car = {'name': ('bugatty',
 

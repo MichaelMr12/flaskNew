@@ -12,10 +12,20 @@
 <body>
 <h1>
     <div> Крутые машины <a href="/index/"> Домой</a>
-     <a href="/login/"> Авторизация</a>
+     <a href="/login"> Авторизация</a>
     </div>
 </h1>
 <hr>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages  %}
+    <li>{{message}}     </li>
+    {% endfor %}
+
+</ul>
+{% endif %}
+{% endwith %}
 {% block content %}
 {% endblock %}
 </body>
