@@ -1,3 +1,5 @@
+#taskkill /f /im python.exe
+
 from flask import Flask, render_template, flash, redirect
 from forms import LoginForm
 
@@ -7,7 +9,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 
-@app.route('/kuku/')
+@app.route('/kuku')
 def hi():  # put application's code here
     return 'sdfsdf!'
 
@@ -22,6 +24,11 @@ def login():  # put application's code here
 
     return render_template('login.html', title='Авторизация пользователя', form=form)
 
+@app.route('/login2')
+def login2():
+
+
+    return render_template('login_2var.html', title='Авторизация пользователя')
 
 
 @app.route('/')
@@ -57,6 +64,11 @@ def petya():  # put application's code here
 # @app.route('/user/<int:post_id>')
 # def show_post(post_id):  # put application's code here
 #     return f"<h1>Горячая и свежая новость № {post_id}</h1>"
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('page404.html', title='Страница не найдена')
 
 
 if __name__ == '__main__':
