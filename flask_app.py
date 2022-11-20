@@ -14,15 +14,15 @@ def hi():  # put application's code here
     return 'sdfsdf!'
 
 
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():  # put application's code here
-#     form = LoginForm()
-#     print(form.validate_on_submit())
-#     if form.validate_on_submit():
-#         flash(f"Зашел пользователь под логином {form.username.data}, запомнить = {form.remember_me.data}")
-#         return redirect('/index')
-#
-#     return render_template('login.html', title='Авторизация пользователя', form=form)
+@app.route('/login', methods=['GET', 'POST'])
+def login():  # put application's code here
+    form = LoginForm()
+    print(form.validate_on_submit())
+    if form.validate_on_submit():
+        flash(f"Зашел пользователь под логином {form.username.data}, запомнить = {form.remember_me.data}")
+        return redirect('/index')
+
+    return render_template('login.html', title='Авторизация пользователя', form=form)
 
 users_passwords = {'1':'12', 'user2':'password2', 'user3':'password3',
 'user4':'password4','user5':'password5', 'user6':'password6', 'user7':'password7',
