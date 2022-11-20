@@ -1,6 +1,6 @@
-#taskkill /f /im python.exe
+# taskkill /f /im python.exe
 
-from flask import Flask, render_template, flash, redirect
+from flask import Flask, render_template, flash, redirect, session, url_for, request, abort
 from forms import LoginForm
 
 from config import Config
@@ -24,11 +24,26 @@ def login():  # put application's code here
 
     return render_template('login.html', title='Авторизация пользователя', form=form)
 
-@app.route('/login2')
+users_passwords = {'1':'12', 'user2':'password2', 'user3':'password3',
+'user4':'password4','user5':'password5', 'user6':'password6', 'user7':'password7',
+'user8':'password8'}
+@app.route('/login2', methods=['POST', 'GET'])
 def login2():
-
+    if 'userlogged' in session:
+        return redirect(url_for('profile', username=session['userlogged']))
+    elif request.method == 'POST' and request.form['username'] in users_passwords\
+and request.form['psw'] == users_passwords[request.form['username']]:
+        session['userlogged'] = request.form['username']
+        return redirect(url_for('profile', username=session['userlogged']))
 
     return render_template('login_2var.html', title='Авторизация пользователя')
+
+
+@app.route('/profile/<username>')
+def profile(username):
+    if 'userlogged' not in session or session['userlogged'] != username:
+        abort(401)
+    return f"<h1> Пользователь {username}"
 
 
 @app.route('/')
