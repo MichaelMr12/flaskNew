@@ -1,4 +1,8 @@
 # taskkill /f /im python.exe
+#
+import datetime
+import os
+import sqlite3
 
 from flask import Flask, render_template, flash, redirect, session, url_for, request, abort
 from forms import LoginForm
@@ -7,6 +11,14 @@ from config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
+app.config.update(dict(DATABASE=os.path.join(app.root_path, 'fdb.db')))
+app.permanent_session_lifetime = datetime.timedelta(seconds=60)
+
+
+def connect_db():
+    conn = sqlite3.connect(app.config['DATABASE'])
+    conn.row_factory = sqlite3.Row
+    return conn
 
 
 @app.route('/kuku')
@@ -24,15 +36,18 @@ def login():  # put application's code here
 
     return render_template('login.html', title='Авторизация пользователя', form=form)
 
-users_passwords = {'1':'12', 'user2':'password2', 'user3':'password3',
-'user4':'password4','user5':'password5', 'user6':'password6', 'user7':'password7',
-'user8':'password8'}
+
+users_passwords = {'1': '12', 'user2': 'password2', 'user3': 'password3',
+                   'user4': 'password4', 'user5': 'password5', 'user6': 'password6', 'user7': 'password7',
+                   'user8': 'password8'}
+
+
 @app.route('/login2', methods=['POST', 'GET'])
 def login2():
     if 'userlogged' in session:
         return redirect(url_for('profile', username=session['userlogged']))
-    elif request.method == 'POST' and request.form['username'] in users_passwords\
-and request.form['psw'] == users_passwords[request.form['username']]:
+    elif request.method == 'POST' and request.form['username'] in users_passwords \
+            and request.form['psw'] == users_passwords[request.form['username']]:
         session['userlogged'] = request.form['username']
         return redirect(url_for('profile', username=session['userlogged']))
 
