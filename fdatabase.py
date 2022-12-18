@@ -1,4 +1,6 @@
+import math
 import sqlite3
+import time
 
 
 def create_db():
@@ -46,18 +48,30 @@ class FDataBase:
             print('Ошибка чтения из БД')
             return []
 
+    def addPost(self, title, text):
+        try:
+            tm = math.floor(time.time())
+            self.__cur.execute("INSERT INTO posts VALUES (NULL, ?, ?, ?)", (title, text, tm))
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print("Ошибка добавления поста в БД", str(e))
+            return False
+        return True
+
 
 if __name__ == '__main__':
     from flask_app import app, connect_db
 
-    print(create_db.__doc__)
+    # print(create_db.__doc__)
     db = connect_db()
     db = FDataBase(db)
-    for i in db.getMenu():
-        print(i['url'])
-    print(*db.getMenu())
+    print(db.addMenu('Добав. статью', 'post'))
+    # for i in db.getMenu():
+    #     print(i['url'])
+    # print(*db.getMenu())
     # print(db.delMenu())
     # print(db.addMenu('Главная', 'index'))
     # print(db.addMenu('Главная', 'index'))
     # print(db.addMenu('Авторизация1', 'login'))
     # print(db.addMenu('Авторизация2', 'login2'))
+    create_db()

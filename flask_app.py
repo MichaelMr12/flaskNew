@@ -1,8 +1,10 @@
 # taskkill /f /im python.exe
 #
 import datetime
+import math
 import os
 import sqlite3
+import time
 
 from flask import Flask, render_template, flash, redirect, session, url_for, request, abort, g
 
@@ -21,15 +23,19 @@ def connect_db():
     conn = sqlite3.connect(app.config['DATABASE'])
     conn.row_factory = sqlite3.Row
     return conn
+
+
 def get_db():
-    if not  hasattr(g, 'link_db'):
+    if not hasattr(g, 'link_db'):
         g.link_db = connect_db()
         return g.link_db
+
 
 @app.teardown_appcontext
 def close_db(error):
     if hasattr(g, 'link_db'):
         g.link_db.close()
+
 
 @app.route('/kuku')
 def hi():  # put application's code here
@@ -64,6 +70,23 @@ def login2():
     return render_template('login_2var.html', title='Авторизация пользователя')
 
 
+@app.route('/post', methods=['POST', 'GET'])
+def post():
+    db = get_db()
+    database = FDataBase(db)
+    if request.method == 'POST':
+        if len(request.form['name']) > 3 and len(request.form['post']) > 10:
+            res = database.addPost(request.form['name'],request.form['post'])
+            if not res:
+                flash('Ошибка добавления статьи', category='error')
+            else:
+                flash('Статья добавлена успешно', category='success')
+        else:
+            flash('Ошибка добавления статьи', category='error')
+
+    return render_template('post.html', title='Добавить статью', menu=database.getMenu())
+
+
 @app.route('/profile/<username>')
 def profile(username):
     if 'userlogged' not in session or session['userlogged'] != username:
@@ -76,7 +99,6 @@ def profile(username):
 def index():  # put application's code here
     db = get_db()
     database = FDataBase(db)
-
 
     car = {'name': ('bugatty',
 
