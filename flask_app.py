@@ -6,6 +6,7 @@ import os
 import sqlite3
 import time
 
+import git
 from flask import Flask, render_template, flash, redirect, session, url_for, request, abort, g
 
 from fdatabase import FDataBase
@@ -29,6 +30,17 @@ def get_db():
     if not hasattr(g, 'link_db'):
         g.link_db = connect_db()
         return g.link_db
+
+
+@app.route('/update_server', methods=['POST', 'GET'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('/home/Mig/flaskNew')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Сайт обновился', 200
+    else:
+        return 'Возникла ошибка', 400
 
 
 @app.teardown_appcontext
@@ -113,6 +125,8 @@ def allposts():  # put application's code here
     database = FDataBase(db)
     return render_template('allposts.html', title='Cписок постов', menu=database.getMenu(),
                            posts=database.getPostAnnoce())
+
+
 @app.route('/posts/<int:id_post>')
 def showPost(id_post):  # put application's code here
     db = get_db()
