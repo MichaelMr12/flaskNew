@@ -56,6 +56,10 @@ def hi():  # put application's code here
 def ss():  # put application's code here
     return 'sssssssssssssssssssss!'
 
+@app.route('/aa')
+def aa():  # put application's code here
+    return 'aaaaaaa!'
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():  # put application's code here
