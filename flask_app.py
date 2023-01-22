@@ -53,7 +53,7 @@ def close_db(error):
 def hi():  # put application's code here
     return 'sdfsdf!'
 @app.route('/ss')
-def hi():  # put application's code here
+def ss():  # put application's code here
     return 'sssssssssssssssssssss!'
 
 
