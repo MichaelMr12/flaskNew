@@ -52,6 +52,9 @@ def close_db(error):
 @app.route('/kuku')
 def hi():  # put application's code here
     return 'sdfsdf!'
+@app.route('/ss')
+def hi():  # put application's code here
+    return 'sssssssssssssssssssss!'
 
 
 @app.route('/login', methods=['GET', 'POST'])
