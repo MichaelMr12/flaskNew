@@ -63,6 +63,10 @@ def test5():  # put application's code here
 @app.route('/test6')
 def test6():  # put application's code here
     return '6666666'
+
+@app.route('/test7')
+def test7():  # put application's code here
+    return 'fdhdfh'
 #vxxc
 #xvcvxsdf
 #gdsfgdfgeg
