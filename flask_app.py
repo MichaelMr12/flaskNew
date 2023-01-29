@@ -64,6 +64,7 @@ def test5():  # put application's code here
 def test6():  # put application's code here
     return '6666666'
 #vxxc
+#xvcvxsdf
 @app.teardown_appcontext
 def close_db(error):
     if hasattr(g, 'link_db'):
