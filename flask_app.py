@@ -55,6 +55,10 @@ def test3():  # put application's code here
 @app.route('/test4')
 def test4():  # put application's code here
     return 'asfasfasfe'
+
+@app.route('/test5')
+def test5():  # put application's code here
+    return 'a123123123e'
 @app.teardown_appcontext
 def close_db(error):
     if hasattr(g, 'link_db'):
