@@ -48,7 +48,7 @@ def test():  # put application's code here
 @app.route('/test2')
 def test2():  # put application's code here
     return 'Все прошло успешно!2e'
-
+#xcbvx
 @app.route('/test3')
 def test3():  # put application's code here
     return 'Все прошло успешно!2e'
