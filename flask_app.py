@@ -42,6 +42,9 @@ def webhook():
     else:
         return 'Возникла ошибка', 400
 
+@app.route('/test')
+def test():  # put application's code here
+    return 'Все прошло успешно!'
 
 @app.teardown_appcontext
 def close_db(error):
