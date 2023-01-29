@@ -47,7 +47,7 @@ def test():  # put application's code here
     return 'Все прошло успешно!'
 @app.route('/test2')
 def test2():  # put application's code here
-    return 'Все прошло успешно!'
+    return 'Все прошло успешно!2e'
 
 @app.teardown_appcontext
 def close_db(error):
