@@ -52,7 +52,9 @@ def test2():  # put application's code here
 @app.route('/test3')
 def test3():  # put application's code here
     return 'Все прошло успешно!2e'
-
+@app.route('/test4')
+def test4():  # put application's code here
+    return 'asfasfasfe'
 @app.teardown_appcontext
 def close_db(error):
     if hasattr(g, 'link_db'):
