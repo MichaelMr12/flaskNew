@@ -45,6 +45,9 @@ def webhook():
 @app.route('/test')
 def test():  # put application's code here
     return 'Все прошло успешно!'
+@app.route('/test2')
+def test():  # put application's code here
+    return 'Все прошло успешно!'
 
 @app.teardown_appcontext
 def close_db(error):
