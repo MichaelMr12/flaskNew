@@ -83,7 +83,7 @@ if __name__ == '__main__':
     # print(create_db.__doc__)
     db = connect_db()
     db = FDataBase(db)
-    print(db.addMenu('Добав. статью', 'post'))
+    # print(db.addMenu('Добав. статью', 'post'))
     # for i in db.getMenu():
     #     print(i['url'])
     # print(*db.getMenu())
@@ -92,4 +92,5 @@ if __name__ == '__main__':
     # print(db.addMenu('Главная', 'index'))
     # print(db.addMenu('Авторизация1', 'login'))
     # print(db.addMenu('Авторизация2', 'login2'))
-    create_db()
+    # create_db()
+    print(db.addMenu('Все статьи', 'allposts'))

@@ -133,25 +133,6 @@ def post():
     return render_template('post.html', title='Добавить статью', menu=database.getMenu())
 
 
-@app.route('/profile/<username>')
-def profile(username):
-    if 'userlogged' not in session or session['userlogged'] != username:
-        abort(401)
-    return f"<h1> Пользователь {username}"
-
-
-@app.route('/')
-@app.route('/index')
-def index():  # put application's code here
-    db = get_db()
-    database = FDataBase(db)
-
-    car = {'name': ('bugatty',
-
-                    'https://autopeople.ru/news/wp-content/uploads/2015-Bugatti-Atlantic-Concept-01.jpg')}
-
-    return render_template('index.html', name=car['name'][0], foto=car['name'][1], title='1', menu=database.getMenu())
-
 
 @app.route('/allposts')
 def allposts():  # put application's code here
@@ -170,6 +151,25 @@ def showPost(id_post):  # put application's code here
         abort(404)
     return render_template('aticle.html', title='title', menu=database.getMenu(), post=aticle)
 
+
+@app.route('/profile/<username>')
+def profile(username):
+    if 'userlogged' not in session or session['userlogged'] != username:
+        abort(401)
+    return f"<h1> Пользователь {username}"
+
+
+@app.route('/')
+@app.route('/index')
+def index():  # put application's code here
+    db = get_db()
+    database = FDataBase(db)
+
+    car = {'name': ('bugatty',
+
+                    'https://autopeople.ru/news/wp-content/uploads/2015-Bugatti-Atlantic-Concept-01.jpg')}
+
+    return render_template('index.html', name=car['name'][0], foto=car['name'][1], title='1', menu=database.getMenu())
 
 @app.route('/petya')
 def petya():  # put application's code here
