@@ -46,7 +46,7 @@ def webhook():
 def test():  # put application's code here
     return 'Все прошло успешно!'
 @app.route('/test2')
-def test():  # put application's code here
+def test2():  # put application's code here
     return 'Все прошло успешно!'
 
 @app.teardown_appcontext
